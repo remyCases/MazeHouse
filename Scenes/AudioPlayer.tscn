@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://dlu2r2kn6irfv"]
+
+[ext_resource type="AudioStream" uid="uid://dlrb7mccee7s4" path="res://Music/TheAdventureBEGINS.wav" id="1_fst0e"]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer"]
+stream = ExtResource("1_fst0e")
+volume_db = -25.0
+autoplay = true

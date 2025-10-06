@@ -1,0 +1,117 @@
+[gd_scene load_steps=12 format=3 uid="uid://by8bnueopiue5"]
+
+[ext_resource type="Script" uid="uid://qv7i48xy3snf" path="res://Scripts/game.gd" id="1_b2bpf"]
+[ext_resource type="Texture2D" uid="uid://bh61o7i8c1hpu" path="res://Sprites/white_pixel.png" id="1_gl6un"]
+[ext_resource type="Script" uid="uid://i0vrti4ihjct" path="res://Scripts/ui.gd" id="2_7lihs"]
+[ext_resource type="Texture2D" uid="uid://t2ntcl5wc1e8" path="res://Sprites/black_pixel.png" id="2_j5yw3"]
+[ext_resource type="Script" uid="uid://b0c5204i23snx" path="res://Scripts/entities.gd" id="2_kldst"]
+[ext_resource type="Script" uid="uid://euaschmx7ykk" path="res://Scripts/menu_container.gd" id="3_fgofq"]
+[ext_resource type="Script" uid="uid://dpfgo8bar7vl4" path="res://Scripts/player.gd" id="3_kldst"]
+
+[sub_resource type="Theme" id="Theme_xvxua"]
+Label/constants/outline_size = 5
+
+[sub_resource type="Theme" id="Theme_blrne"]
+
+[sub_resource type="Theme" id="Theme_3opw3"]
+Label/constants/outline_size = 5
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_epypp"]
+
+[node name="GameManager" type="Node2D"]
+script = ExtResource("1_b2bpf")
+
+[node name="UI" type="CanvasLayer" parent="." node_paths=PackedStringArray("score_label", "information_label")]
+script = ExtResource("2_7lihs")
+score_label = NodePath("UIContainer/ScoreMargin/ScoreContainer/Score")
+information_label = NodePath("UIContainer/MiddleContainer/InformationMargin/InformationLabel")
+
+[node name="UIContainer" type="HBoxContainer" parent="UI"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Control" type="Control" parent="UI/UIContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MiddleContainer" type="VBoxContainer" parent="UI/UIContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="InformationMargin" type="MarginContainer" parent="UI/UIContainer/MiddleContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 20
+
+[node name="InformationLabel" type="Label" parent="UI/UIContainer/MiddleContainer/InformationMargin"]
+visible = false
+layout_mode = 2
+theme = SubResource("Theme_xvxua")
+text = "LoremIpsum"
+horizontal_alignment = 1
+
+[node name="MenuContainer" type="VBoxContainer" parent="UI/UIContainer/MiddleContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+script = ExtResource("3_fgofq")
+
+[node name="MenuText" type="Label" parent="UI/UIContainer/MiddleContainer/MenuContainer"]
+layout_mode = 2
+theme = SubResource("Theme_blrne")
+text = "LoremIpsum"
+horizontal_alignment = 1
+
+[node name="RestartButton" type="Button" parent="UI/UIContainer/MiddleContainer/MenuContainer"]
+layout_mode = 2
+text = "Restart"
+
+[node name="QuitButton" type="Button" parent="UI/UIContainer/MiddleContainer/MenuContainer"]
+layout_mode = 2
+text = "Quit"
+
+[node name="ScoreMargin" type="MarginContainer" parent="UI/UIContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+
+[node name="ScoreContainer" type="HBoxContainer" parent="UI/UIContainer/ScoreMargin"]
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 0
+
+[node name="TargetSprite" type="TextureRect" parent="UI/UIContainer/ScoreMargin/ScoreContainer"]
+layout_mode = 2
+texture = ExtResource("1_gl6un")
+expand_mode = 2
+
+[node name="Score" type="Label" parent="UI/UIContainer/ScoreMargin/ScoreContainer"]
+layout_mode = 2
+theme = SubResource("Theme_3opw3")
+text = "X / Y"
+
+[node name="Entities" type="Node" parent="."]
+script = ExtResource("2_kldst")
+
+[node name="Player" type="CharacterBody2D" parent="Entities"]
+collision_mask = 14
+script = ExtResource("3_kldst")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Entities/Player"]
+shape = SubResource("RectangleShape2D_epypp")
+debug_color = Color(0.9108913, 0.13327336, 0.652561, 0.41960785)
+
+[node name="Sprite2D" type="Sprite2D" parent="Entities/Player"]
+position = Vector2(2.3841858e-07, 2.3841858e-07)
+scale = Vector2(20, 20)
+texture = ExtResource("2_j5yw3")
+
+[node name="EvilTimer" type="Timer" parent="Entities"]
+wait_time = 0.5
+one_shot = true
+autostart = true
+
+[node name="InLightTimer" type="Timer" parent="Entities"]

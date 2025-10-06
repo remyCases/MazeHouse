@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://c7ufg1q76h5m2"]
+
+[ext_resource type="Texture2D" uid="uid://bh61o7i8c1hpu" path="res://Sprites/white_pixel.png" id="1_kavup"]
+[ext_resource type="Script" uid="uid://c4bbkjyppfycc" path="res://Scripts/target.gd" id="1_upqb4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qd6y7"]
+
+[node name="Target" type="Area2D"]
+collision_layer = 4
+script = ExtResource("1_upqb4")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = -1
+scale = Vector2(20, 20)
+texture = ExtResource("1_kavup")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_qd6y7")
